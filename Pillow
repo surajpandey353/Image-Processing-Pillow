@@ -5,7 +5,6 @@ img = Image.open("F:\\Docs\\Uni-Siegen\\WiSe2020-21\\Image_Processing\\test_imag
 #img.show()    #To show Image in a window
 
 #resizing
-
 small_img = img.resize((1000,800))
 small_img.save("test_img_small.jpg")
 #small_img.show()
@@ -13,3 +12,51 @@ small_img.save("test_img_small.jpg")
 img.thumbnail((500,400)) # resize and keep the aspect ratio
 img.save("test_img_thumbnail.jpg")
 #img.show()
+
+#CROPPING OF THE IMAGE
+cropped_img = img.crop((0,0,200,150))   #The Arguement is starting and end corddinate 
+cropped_img.save("cropped_image.jpg")
+#cropped_img.show()
+
+#COPYING AND PASTING TO OTHER IMAGE
+img1 = Image.open("F:\\Docs\\Uni-Siegen\\WiSe2020-21\\Image_Processing\\test_image2.jpg")
+print(img1.size)
+img2 = Image.open("F:\\Docs\\Uni-Siegen\\WiSe2020-21\\Image_Processing\\test_image3.jpg")
+print(img2.size)
+img2.thumbnail((1500,200))
+img1_copy=img1.copy()
+img1_copy.paste(img2,(100,100))
+img1_copy.save("CopyabdPaste.jpg")
+#img1_copy.show()
+
+#IMAGE ROTATION
+img90= img.rotate(90)
+img90.save("img_rot_90.jpg")
+img45= img.rotate(45,expand=True) #Rotate and expand from the edges
+img45.save("img_rot_45.jpg")
+#img45.show()
+
+#FLIP IMAGE
+img_flipLR = img.transpose(Image.FLIP_LEFT_RIGHT)
+img_flipLR.save("img_flipLR.jpg")
+#img_flipLR.show()
+img_flipTB = img.transpose(Image.FLIP_TOP_BOTTOM)
+#img_flipTB.show()
+
+#CONVERSION TO GRAY SCALE IMAGE
+grey_image = img.convert("L")
+grey_image.save("gry_img.jpg")
+#grey_image.show()
+rgb_image = grey_image.convert("RGB")
+rgb_image.save("rgb_image.jpg")
+#rgb_image.show()
+
+#AUTOMATING IMAGE PROCESSING
+import glob
+path = "F:\\Docs\\Uni-Siegen\\WiSe2020-21\\Image_Processing\\*"
+for file in glob.glob(path):
+    print(file)
+    a = Image.open(file)
+    flippedTB = a.transpose(Image.FLIP_TOP_BOTTOM)
+    flippedTB.save(file + "_flippedTB.jpg", "JPEG")
+
